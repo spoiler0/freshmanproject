@@ -6,6 +6,8 @@ const route = require("./server/route").route;
 
 const app = express();
 
+app.use(express.static('./client/views'));
+
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/client/views");
 

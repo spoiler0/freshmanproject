@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>대본저장소</title>
+    <link rel='stylesheet' href='/client/views/index.css' type="text/css" />
+    <style>
+      * {
+    box-sizing: border-box;
+}
+
+
+html, body {
+  margin: 0;
+  font-family: helvetica;
+  height: 100vh;
+}
+
+table {
+  width: 500px;
+  margin: auto;
+}
+
+.navbar {
+  height: 100px;
+  background-color: white;
+  color: #888;
+  text-align: center;
+}
+
+.logo {
+    display: inline-block;
+    line-height: 100px;
+    font-size: 48px;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    float: right;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    margin-right: 30px;
+}    
+
+.list-item {
+    text-decoration: none;
+    padding: 0 10px;
+    color: #888;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.No_header, .Title_header, .Author_header {
+  font-size: 24px;
+}
+
+#file-link {
+  font-size: 18px;
+  color: black;
+  text-decoration: none;
+}
+
+#file-link:hover {
+  color: #888;
+  text-decoration: underline;
+}
+
+.btn_group {
+  margin-top: 42px;
+  text-align: center;
+}
+
+#new-post {
+  border: 1px solid green;
+  border-radius: 10px;
+  padding: 4px;
+  text-decoration: none;
+  color: black;
+  font-size: 22px;
+}
+
+#new-post:hover {
+  border: 1px solid green;
+  padding: 8px;
+  text-decoration: underline;
+  font-size: 24px;
+}
+
+
+
+    </style>
+  </head>
+  <body>
+    <!-- <div class="background"> -->
+    <div class="navbar">
+      <a href="/main" class="logo" style="text-decoration: none; color: #888" >대본저장소</a>
+      <div class="list">
+        <a id="logout" href="/logout" class="list-item">logout</a>
+        <!-- <a href="#" class="list-item">Account</a> -->
+      </div>
+    </div>
+    <table>
+        <tr id="tr1">
+          <td class="No_header"><strong>No.</strong></td>
+          <td class="Title_header"><strong>Title</strong></td>
+          <td class="Author_header"><strong>Author</strong></td>
+        </tr>
+        
+        <%if(board.length > 0){%>
+        <%var i = 0;%>
+        <%board.forEach(function(item){%>
+        <%i++;%>
+        <tr>
+          <td class="No"><%=i%></td>
+          <td class="Title"><a id="file-link" href="/board/<%= item._id%>"><%=item.title%></a></td>        
+          <td class="Author"><%=item.author%></td>
+        </tr>
+        <%})%>
+        <%} else {%>
+        <tr>
+            <td colspan="5">게시물이 없습니다.</td>
+        </tr>
+        <%}%>
+      </table>
+      <div class="btn_group">
+          <a id="new-post" href="write">새 글</a>
+      </div>
+    </div>
+  <!-- </div> -->
+    <script>
+      document.getElementsByTagName('body')[0].style="display: none;"
+
+      if (!localStorage.getItem('token'))
+        window.location="http://localhost:8000/"
+      else
+        document.getElementsByTagName('body')[0].style=""
+
+      document.getElementById('logout').addEventListener('click', () => {
+        localStorage.removeItem('token');
+        window.location="http://localhost:8000/"
+      })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <!-- <link rel='stylesheet' href='/stylesheets/style.css' /> -->
+    <style>
+        * {
+      box-sizing: border-box;
+  }
+  html, body {
+    margin: 0;
+    font-family: helvetica;
+  }
+  
+  .navbar {
+    height: 100px;
+    background-color: white;
+    color: #888;
+    text-align: center;
+  }
+  
+  .logo {
+      display: inline-block;
+      line-height: 100px;
+      font-size: 48px;
+  }
+    
+  .list {
+      display: flex;
+      align-items: center;
+      float: right;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      margin-right: 30px;
+  }    
+  
+  .list-item {
+      text-decoration: none;
+      padding: 0 10px;
+      color: #888;
+      height: 100%;
+      display: flex;
+      align-items: center;
+  }
+  
+  #input-wrapper {
+    width: 250px;
+    height: 200px;
+    margin-left: calc(50% - 180px);
+  }
+    
+  input {
+    margin: 10px 0px;
+  }
+  
+  
+      </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <a href="/main" class="logo" style="text-decoration: none; color: #888" >대본저장소</a>
+      <div class="list">
+        <a id="logout" href="/logout" class="list-item">logout</a>
+        <!-- <a href="#" class="list-item">Account</a> -->
+      </div>
+    </div>
+    
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <div id="input-wrapper">
+      제목 : <input type="text" name="title"><br>
+      내용 : <textarea name="contents"></textarea><br>
+      글쓴이 : <input type="text" name="author"><br>
+      <input type='file' name='userfile'>
+      <input type="submit" value="확인">
+      </div>
+    </form>
+    
+    <script>
+        document.getElementsByTagName('body')[0].style="display: none;"
+  
+        if (!localStorage.getItem('token'))
+          window.location="http://localhost:8000/"
+        else
+          document.getElementsByTagName('body')[0].style=""
+  
+        document.getElementById('logout').addEventListener('click', () => {
+          localStorage.removeItem('token');
+          window.location="http://localhost:8000/"
+        })
+      </script>
+  </body>
+</html>
